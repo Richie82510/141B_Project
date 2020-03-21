@@ -42,14 +42,6 @@ ui <- fluidPage(
                   label = "Select the Second Player:",
                   choices = unique(leader$Player),
                   selected = "Bradley Beal")),
-      # selectInput(inputId = "Stat1",
-      #           label = "Select the first Attribute:",
-      #           choices = unique(colnames(leader,5)),
-      #           selected = "PTS")),
-      # selectInput(inputId = "Stat2",
-      #           label = "Select the second Attribute:",
-      #           choices = unique(colnames(leader,5)),
-      #           selected = "REB")),
     mainPanel(
       plotOutput("output0"),
       plotOutput("output1"),
@@ -61,11 +53,8 @@ ui <- fluidPage(
       )
   )
 )
-#input<-list(`Player1`="James Harden",`Player2`="Bradley Beal")
-
 server <- function(input, output) {
   
-  #Filter flights based on input
   leader2 <-reactive({
     filter(leader1,Player == input$Player1 | Player == input$Player2)
     
@@ -85,7 +74,6 @@ server <- function(input, output) {
     data.plot
   })
   output$dtab <- renderDataTable(leader2())
-  #Make histogram of arrival delays
   output$output0 <- renderPlot({
     library(RColorBrewer)
     coul <- brewer.pal(3, "BuPu")
